@@ -1,0 +1,27 @@
+{
+  "name": "gcloud-livestream-simplified",
+  "version": "0.0.1",
+  "description": "This package is made to simplify google-cloud livestream api usage.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-only-ashutosh/gcloud-livestream-simplified.git"
+  },
+  "keywords": [
+    "Live",
+    "Stream",
+    "Api"
+  ],
+  "author": "Ashutosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/the-only-ashutosh/gcloud-livestream-simplified/issues"
+  },
+  "homepage": "https://github.com/the-only-ashutosh/gcloud-livestream-simplified#readme",
+  "dependencies": {
+    "@google-cloud/livestream": "^1.0.1"
+  }
+}
