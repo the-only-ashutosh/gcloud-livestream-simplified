@@ -14,7 +14,7 @@ const gChannelEvent = require('./livestream-services/getChannelEvent');
 const dChannelEvent = require('./livestream-services/deleteChannelEvent');
 const lChannelEvents = require ('./livestream-services/listChannelEvent');
 
-class LiveStreamSimplified{
+
 
      /**
      * Takes an object to pass data to google cloud.
@@ -29,47 +29,38 @@ class LiveStreamSimplified{
      * @param {string} eventId {Event Id for the channel. You can use it to manage channel without stopping the stream}
      * @configure these params to class LiveStreamSimplified
      */
-    constructor({projectId,location,inputId,channelId,outputUri,assetId,assetUri,eventId}){
-        this.projectId = projectId;
-        this.location = location;
-        this.inputId = inputId;
-        this.channelId = channelId;
-        this.outputUri = outputUri;
-        this.assetId = assetId;
-        this.assetUri = assetUri;
-        this.eventId = eventId;
-    }
+
     /**
      * @param {string} projectId {Project Id of your google cloud project example:(some-46736246)}
      * @param {string} location {Location of your server example : (asia-south2)}
      * @returns an object that refers to the created input
      */
-    createInput({projectId = this.projectId,location = this.location}){
+    export function createInput ({projectId,location,inputId}){
         if(projectId&&location&&inputId){
             return cInput(projectId,location,inputId);
         }else{
             console.log("Please initialize or provide valid parameters.")
         }
-    }
+    };
     /**
      * @param {string} projectId {Project Id of your google cloud project example:(some-46736246)}
      * @param {string} location {Location of your server example : (asia-south2)}
      * @param {string} inputId  {Input Id for your input signal. Should be an unique string for your cloud project every time.}
      * @implements Deletes the provided input resource
      */
-    deleteInput({projectId = this.projectId,location = this.location,inputId = this.inputId}){
+    export function deleteInput({projectId,location,inputId}){
         if(projectId&&location&&inputId){
             dInput(projectId,location,inputId);
         }else{
             console.log("Please initialize or provide valid parameters.")
         }
-    }
+    };
     /**
      * @param {string} projectId {Project Id of your google cloud project example:(some-46736246)}
      * @param {string} location {Location of your server example : (asia-south2)}
      * @returns an iterable object this contains list of input resource
      */
-    listInput({projectId = this.projectId,location = this.location}){
+    export function listInput({projectId,location}){
         if(projectId&&location){
             return lInputs(projectId,location);
         }else{
@@ -82,11 +73,11 @@ class LiveStreamSimplified{
      * @param {string} inputId  {Input Id for your input signal. Should be an unique string for your cloud project every time.}
      * @returns an object that refers to the requested input endpoint resource
      */
-    dsbnfnf({projectId= this.projectId,location = this.location,inputId = this.inputId}){
+    export function getInput({projectId,location,inputId}){
         if(projectId&&location&&inputId){
             return gInput(projectId,location,inputId);
         }else{
-            console.log("Please initialize or provide valid parameters.")
+            console.log("Please initialize or provide valid parameters.");
         }
     }
     /**
@@ -97,7 +88,7 @@ class LiveStreamSimplified{
      * @param {string} outputUri {Output uri for the signal. Should be a bucket location example : (gs://some-bucket/some-folder)}
      * @returns an object that refers to the created channel
      */
-    createChannel({projectId= this.projectId,location = this.location,inputId = this.inputId,channelId = this.channelId,outputUri = this.outputUri}){
+    export function createChannel({projectId,location,inputId,channelId,outputUri}){
         if(projectId&&location&&inputId&&channelId&&outputUri){
             return cChannel(projectId,location,channelId,inputId,outputUri);
         }else{
@@ -110,7 +101,7 @@ class LiveStreamSimplified{
      * @param {string} channelId {Channel Id of the channel. Should be an unique string for your cloud project every time.}
      * @implements Starts the channel with provided params.
      */
-    hsfbkvdnl({projectId = this.projectId,location = this.location,channelId = this.channelId}){
+    export function startChannel({projectId,location,channelId}){
         if(projectId&&location&&channelId){
             sChannel(projectId,location,channelId);
         }else{
@@ -123,7 +114,7 @@ class LiveStreamSimplified{
      * @param {string} channelId {Channel Id of the channel. Should be an unique string for your cloud project every time.}
      * @implements Stops the channel with provided params.
      */
-    khvbskfbkn({projectId = this.projectId,location = this.location,channelId = this.channelId}){
+    export function stopChannel({projectId,location,channelId}){
         if(projectId&&location&&channelId){
             stChannel(projectId,location,channelId);
         }else{
@@ -136,7 +127,7 @@ class LiveStreamSimplified{
      * @param {string} channelId {Channel Id of the channel. Should be an unique string for your cloud project every time.}
      * @returns the channel with the corresponding params
      */
-    fhkbdkjvnnnl({projectId = this.projectId,location = this.location,channelId = this.channelId}){
+    export function getChannel({projectId,location,channelId}){
         if(projectId&&location&&channelId){
             return gChannel(projectId,location,channelId);
         }else{
@@ -148,7 +139,7 @@ class LiveStreamSimplified{
      * @param {string} location {Location of your server example : (asia-south2)}
      * @returns an iterable object that contains the list of channel at the provided location.
      */
-    listAllChannel({projectId = this.projectId,location = this.location}){
+    export function listAllChannel({projectId,location}){
         if(projectId&&location){
             return callListChannels(`projects/${projectId}/locations/${location}`);
         }else{
@@ -161,7 +152,7 @@ class LiveStreamSimplified{
      * @param {string} channelId {Channel Id of the channel. Should be an unique string for your cloud project every time.}
      * @implements Deletes the channel with provided params.
      */
-    deleteChannel({projectId = this.projectId,location = this.location,channelId = this.channelId}){
+    export function deleteChannel({projectId,location,channelId}){
         if(projectId&&location&&channelId){
             dChannel(projectId,location,channelId);
         }else{
@@ -175,7 +166,7 @@ class LiveStreamSimplified{
      * @param {string} assetUri {Asset Uri is the location of your asset on cloud bucket example : (gs://some-bucket/some-folder/some-asset.mp4)}
      * @returns an object that refers to the created asset
      */
-    createAsset({projectId = this.projectId,location = this.location,assetId = this.assetId,assetUri = this.assetUri}){
+    export function createAsset({projectId,location,assetId,assetUri}){
         if(projectId&&location&&assetId&&assetUri){
             return cAsset(projectId,location,assetId,assetUri);
         }else{
@@ -189,7 +180,7 @@ class LiveStreamSimplified{
      * @param {string} eventId {Event Id for the channel. You can use it to manage channel without stopping the stream}
      * @returns an object that refers to the created channel event
      */
-    createChannelEvent({projectId = this.projectId,location = this.location,channelId = this.channelId,eventId = this.eventId}){
+    export function createChannelEvent({projectId,location,channelId,eventId}){
         if(projectId&&location&&channelId&&eventId){
             return cChannelEvent(projectId,location,channelId,eventId);
         }else{
@@ -203,7 +194,7 @@ class LiveStreamSimplified{
      * @param {string} eventId {Event Id for the channel. You can use it to manage channel without stopping the stream}
      * @returns an object that refers to the channel event with the corresponding params
      */
-    getChannelEvent({projectId = this.projectId,location = this.location,channelId = this.channelId,eventId = this.eventId}){
+    export function getChannelEvent({projectId,location,channelId,eventId}){
         if(projectId&&location&&channelId&&eventId){
             return gChannelEvent(projectId,location,channelId,eventId);
         }else{
@@ -217,7 +208,7 @@ class LiveStreamSimplified{
      * @param {string} eventId {Event Id for the channel. You can use it to manage channel without stopping the stream}
      * @implements Deletes the channel event with the corresponding params
      */
-    deleteChannelEvent({projectId = this.projectId,location = this.location,channelId = this.channelId,eventId = this.eventId}){
+     export function deleteChannelEvent({projectId,location,channelId,eventId}){
         if(projectId&&location&&channelId&&eventId){
             dChannelEvent(projectId,location,channelId,eventId);
         }else{
@@ -230,29 +221,10 @@ class LiveStreamSimplified{
      * @param {string} channelId {Channel Id of the channel. Should be an unique string for your cloud project every time.}
      * @returns an iterable which contains list of all channel event to the particular channel
      */
-    listAllChannelEvent({projectId = this.projectId,location = this.location,channelId = this.channelId}){
+    export function listAllChannelEvent({projectId,location,channelId}){
         if(projectId&&location&&channelId){
             return lChannelEvents(projectId,location,channelId);
         }else{
             console.log("Please initialize or provide valid parameters.")
         }
     }
-}
-
-module.exports = {
-    createInput:createInput,
-    deleteInput:deleteInput,
-    listInput:listInput,
-    getInput:dsbnfnf,
-    createChannel:createChannel,
-    startChannel:hsfbkvdnl,
-    stopChannel:khvbskfbkn,
-    getChannel:fhkbdkjvnnnl,
-    listAllChannel:listAllChannel,
-    deleteChannel:deleteChannel,
-    createAsset:createAsset,
-    createChannelEvent:createChannelEvent,
-    getChannelEvent:getChannelEvent,
-    deleteChannelEvent:deleteChannelEvent,
-    listAllChannelEvent:listAllChannelEvent
-};
